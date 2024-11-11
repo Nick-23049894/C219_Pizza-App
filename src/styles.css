@@ -110,6 +110,16 @@ img {
     margin-right: 10px;
 }
 
+.search-input {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
 /* Content Wrapper */
 .content {
     flex: 1;
