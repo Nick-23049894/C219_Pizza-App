@@ -1,17 +1,110 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './styles.css';
+
+function App() {
+  const currentHour = new Date().getHours();
+  const isOpen = currentHour >= 10 && currentHour < 22;
+  return (
+    <div className="content">
+      <h1 className="header">Nick's Pizza Co.</h1>
+      {isOpen && <h2 className="tagline">Authentic Italian Cuisine</h2>}
+      <h2 className='menu-header'>Our Menu</h2>
+      <Menu />
+      <Footer isOpen={isOpen} />
+      <button className='order-btn'>Order</button>
+    </div>
+  );
+}
+
+// Menu component
+function Menu() {
+  return (
+    <div>
+
+      <div className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza
+            key={pizza.name}
+            name={pizza.name}
+            ingredients={pizza.ingredients}
+            price={pizza.price}
+            image={pizza.image}
+          />
+        ))}
+      </div>
+    </div>
+
+  );
+}
+
+// Pizza component
+function Pizza({ name, image, ingredients, price }) {
+  return (
+    <div className="pizza-container">
+      <img src={image} alt={`${name} img`} />
+      <div className="pizza-details">
+        <h3>{name}</h3>
+        <ul>
+          {ingredients.map((ingredient) => (
+            <li key={ingredient}>{ingredient}</li>
+          ))}
+        </ul>
+        <p>{price}</p>
+      </div>
+    </div>
+  );
+}
+
+
+// Pizza data array with corrected image paths
+const pizzaData = [
+  {
+    name: "Spinach Pizza",
+    ingredients: ["Tomato", "Mozzarella", "Spinach", "Ricotta Cheese"],
+    price: 10,
+    image: "pizzas/spinaci.jpg",
+  },
+  {
+    name: "Margherita Pizza",
+    ingredients: ["Tomato", "Mozzarella"],
+    price: 8,
+    image: "pizzas/margherita.jpg",
+  },
+  {
+    name: "Focaccia",
+    ingredients: ["Mozzarella"],
+    price: 12,
+    image: "pizzas/focaccia.jpg",
+  },
+  {
+    name: "Funghi",
+    ingredients: ["mushrooms", "Mozzarella"],
+    price: 12,
+    image: "pizzas/funghi.jpg",
+  },
+  {
+    name: "Salamino",
+    ingredients: ["Salamino", "Mozzarella", "Tomato"],
+    price: 12,
+    image: "pizzas/salamino.jpg",
+  },
+  {
+    name: "Prosciutto",
+    ingredients: ["Prosciutto", "Mozzarella", "Tomato"],
+    price: 12,
+    image: "pizzas/prosciutto.jpg",
+  },
+
+];
+
+function Footer({ isOpen }) {
+  return (
+    <footer className="footer">
+      {isOpen ? "We're currently open" : "Sorry, we're closed"}
+    </footer>
+  );
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(<App />);
